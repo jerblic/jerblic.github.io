@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="Autor" content="Jhon E Rodríguez Balanta">
+    <meta name="descripción" content="Programa que te ayuda a calcular un tranformador de potencia">
+    <!--se agrega un icono a la página, éste debe estar en la misma carpeta de la página-->
+    <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <title>Cálculo simplificado de un tranformador de potencia</title>
+    <!--se agrega el link de la hoja de estilos que está en un archivo aparte-->
+    <link rel="stylesheet" href="estilos.css">
+  </head>
+  <body>
+    <!--se agrega la etiqueta div para crear con css la caja principal-->
+    <div class="caja_principal">
+    <!--se crea la etiqueta header para hacer la cabecera de la página y aplicar estilos-->
+    <header class="cabecera">
+      <!--titulo de la página-->
+    <h1>Cálculo de tranformador de baja potencia monofásico</h1> 
+    <!--descripción de la página con énfasis "negrilla" en ley de ohm, así se crean los párrafos-->
+    <p>Este programa te ayudará a calcular <strong>un transformador de potencia</strong> </p>
+    <p>Programa creado por el Ing. Jhon Rodríguez Balanta</p>
+    </header>
+    
+  <section class="seccion_1">
+    <!--insertamos los controles de la aplicación-->
+    <fieldset class="fieldset_1">
+      <legend> Paso 1 : Datos del circuito secundario</legend>
+    <!--se crean las etiquetas y las entradas de valores numéricos-->
+      <p> <label for="Vs"> Voltaje del secundario:</label> <input class="entr_text" type="number" id="Vs" name="voltaje_sec" step="0.01" min="0" value="0"> </p>
+      <p> <label for="Is"> Corriente del secundario:</label> <input class="entr_text" type="number" id="Is" name="corriente_sec" step="0.01" min="0" value="0"> </p>  
+      <p> <label for="Ps"> Potencia del secundario:</label> <input class="entr_text" type="number" id="Ps" name="potencia_sec" placeholder="Ps (W)" readonly step="0.01" min="0">
+        <label for="Ps"> Watt</label> </p>
+      <p> <input class="boton" type="button" onclick="potencia();" id="cal_pot" value="Calcular"> </p>
+    </fieldset>
+  </section>
+  <section class="seccion_2">
+    <!--insertamos los controles de la aplicación del paso 2-->
+    <fieldset class="fieldset_2">
+      <legend> Paso 2 : Cálculo de la potencia del primario</legend>
+    <!--se crean las etiquetas y las entradas de valores numéricos-->
+      <p></p>
+    <label for="rendimiento"> Rendimiento del transformador:  </label>
+      <select id="rendimiento">
+        <option selected value="0.50">0,50</option>
+        <option>0.60</option>
+        <option>0.65</option>
+        <option>0.70</option>
+        <option>0.75</option>
+        <option>0.80</option>
+        <option>0.85</option>
+        <option>0.90</option>
+        <option>0.95</option>   
+      </select> 
+      
+      <p> <label for="Pp"> Potencia del Primario:</label> <input class="entr_text" type="number" id="Pp" name="potencia_pri" placeholder="Pp (W)" readonly step="0.01" min="0">
+        <label for="Pp"> Watt</label> </p>
+
+      <p> <input class="boton" type="button" onclick="pot_primario();" id="cal_pot_pri" value="Calcular"> </p>
+      
+    </fieldset>
+  </section>  
+    
+  <section class="seccion_3">
+    <fieldset>
+      <legend> Paso 3 : Cálculo de la sección del núcleo</legend>
+      <!--se crean las etiquetas y las entradas de valores numéricos-->
+      <label for="coeficiente"> Coeficiente multiplicativo  </label>
+      <select id="coeficiente">
+        <option selected value="1.1">1.1</option>
+        <option>1.2</option>
+        <option>1.3</option>
+        <option>1.4</option>
+        <option>1.5</option>
+        <option>1.6</option> 
+      </select> 
+      <p> <label for="S"> Sección del núcleo del transformador:</label> <input class="entr_text" type="number" id="S" name="Seccion_nucleo" placeholder="Área" readonly step="0.01" min="0">
+        <label for="S">cm<sup>2</sup></label> </p>
+      <p> <input class="boton" type="button" onclick="seccion_nucleo();" id="sec_nuc" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Dimensiones del laminado (E-I)</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">a (cm)</th>
+              <th scope="col">b (cm)</th>
+              <th scope="col">c (cm)</th>
+              <th scope="col">e (cm)</th>
+              <th scope="col">f (cm)</th>
+              <th scope="col">sup vent (cm<sup>2</sup>)</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel1">0</td>
+              <td id="cel2">0</td>
+              <td id="cel3">0</td>
+              <td id="cel4">0</td>
+              <td id="cel5">0</td>
+              <td id="cel6">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </section> 
+  <section class="seccion_4">
+    <fieldset>
+      <legend> Paso 4, 5 y 6: (espiras/votio),(espiras/bobinado) e (Ip,Is)</legend>
+      <p> <label for="Vp"> Voltaje del primario:</label> <input class="entr_text" type="number" id="Vp" name="voltaje_primario" placeholder="Volt pri" step="0.01" min="0">
+        <label for="Vp">V</label> </p>
+        <label for="frecuencia"> Frecuencia</label>
+        <select id="frecuencia">
+          <option selected value="60">60</option>
+          <option>50</option> 
+        </select>
+        <label for="frecuencia">Hz</label> </p>
+      <p> <input class="boton" type="button" onclick="paso_456();" id="paso_456" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Número de vueltas y corriente</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">N/V (t/vol)</th>
+              <th scope="col">Np (vuel)</th>
+              <th scope="col">Ns (vuel)</th>
+              <th scope="col">Ip (A)</th>
+              <th scope="col">Is (A)</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel7">0</td>
+              <td id="cel8">0</td>
+              <td id="cel9">0</td>
+              <td id="cel10">0</td>
+              <td id="cel11">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </section>
+  <section class="seccion_5">
+    <fieldset>
+      <legend> Paso 7: densidad de corriente y sección del alambre</legend>
+        <label for="densidad"> Densidad</label>
+        <select id="densidad">
+          <option selected value="1.5">1.5</option>
+          <option>2.0</option>
+          <option>2.5</option>
+          <option>3.0</option>
+          <option>3.5</option> 
+        </select>
+        <label for="densidad">A/mm <sup>2</sup></label> </p>
+        <p> <label for="diametro_p"> Diámetro en el primario:</label> <input class="entr_text" type="number" id="diametro_p" name="diametro_conductor_p" placeholder="Diám" readonly step="0.01" min="0">
+          <label for="diametro_p">mm</label> </p>
+        <p> <label for="diametro_s"> Diámetro en el secundario:</label> <input class="entr_text" type="number" id="diametro_s" name="diametro_conductor_s" placeholder="Diám" readonly step="0.01" min="0">
+          <label for="diametro_s">mm</label> </p> 
+        <p> <input class="boton" type="button" onclick="diametro_con();" id="diametro_con" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Calibre del conductor del primario</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">Calibre (AWG))</th>
+              <th scope="col">Diámetro Nom (mm)</th>
+              <th scope="col">Diámetro Csen (mm)</th>
+              <th scope="col">Diámetro Cdob (mm))</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel12">0</td>
+              <td id="cel13">0</td>
+              <td id="cel14">0</td>
+              <td id="cel15">0</td>
+          </tr>
+          <tr>
+            <td scope="row" id="cel16">0</td>
+            <td id="cel17">0</td>
+            <td id="cel18">0</td>
+            <td id="cel19">0</td>
+        </tr>
+        <tr>
+          <td scope="row" id="cel20">0</td>
+          <td id="cel21">0</td>
+          <td id="cel22">0</td>
+          <td id="cel23">0</td>
+        </tr>
+        <tr>
+          <td scope="row" id="cel24">0</td>
+          <td id="cel25">0</td>
+          <td id="cel26">0</td>
+          <td id="cel27">0</td>
+        </tr>
+
+        </tbody>
+      </table>
+      <table>
+        <!--creamos el encabezado de la tabla-->
+      <caption class="cambia_texto">Calibre del conductor del secundario</caption>
+      <!--se crean las columnas y sus nombres-->
+      <thead>
+        <tr>
+            <th scope="col">Calibre (AWG))</th>
+            <th scope="col">Diámetro Nom (mm)</th>
+            <th scope="col">Diámetro Csen (mm)</th>
+            <th scope="col">Diámetro Cdob (mm))</th>
+        </tr>
+      </thead>
+          <!--se crean las filas con los datos de la tabla-->
+      <tbody>
+        <tr>
+            <td scope="row" id="cel28">0</td>
+            <td id="cel29">0</td>
+            <td id="cel30">0</td>
+            <td id="cel31">0</td>
+        </tr>
+        <tr>
+          <td scope="row" id="cel32">0</td>
+          <td id="cel33">0</td>
+          <td id="cel34">0</td>
+          <td id="cel35">0</td>
+      </tr>
+      <tr>
+        <td scope="row" id="cel36">0</td>
+        <td id="cel37">0</td>
+        <td id="cel38">0</td>
+        <td id="cel39">0</td>
+      </tr>
+      <tr>
+        <td scope="row" id="cel40">0</td>
+        <td id="cel41">0</td>
+        <td id="cel42">0</td>
+        <td id="cel43">0</td>
+      </tr>
+      </tbody>
+      </table>
+    </fieldset>
+  </section>
+  <section class="seccion_6">
+    <fieldset>
+      <legend> Paso 8, 9, 10 y 11: superficie del cobre, coeficiente de ventana, espiras por capa y número de capas</legend>
+        <p> <label for="diametro_sp"> Diámetro seleccionado en el primario:</label> <input class="entr_text" type="number" id="diametro_sp" name="diametro_conductor_sp" placeholder="Digite" step="0.001" min="0" title="Digite el valor del diámetro seleccionado para el primario">
+          <label for="diametro_sp">mm</label> </p>
+        <p> <label for="diametro_ss"> Diámetro seleccionado en el secundario:</label> <input class="entr_text" type="number" id="diametro_ss" name="diametro_conductor_ss" placeholder="Digite" step="0.001" min="0" title="Digite el valor del diámetro seleccionado para el secundario">
+          <label for="diametro_s">mm</label> </p> 
+        <p> <input class="boton" type="button" onclick="paso_8910();" id="paso_8910" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Valores calculados</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">STcu (cm<sup>2</sup>)</th>
+              <th scope="col" title="recuerde que debe estar entre 0,2 y 0,3">Coefi</th>
+              <th scope="col">Esp/capa (Pri)</th>
+              <th scope="col">Esp/capa (Sec)</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel44">0</td>
+              <td id="cel45">0</td>
+              <td id="cel46">0</td>
+              <td id="cel47">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <!--creamos el encabezado de la tabla-->
+      <caption class="cambia_texto">Número de capas</caption>
+      <!--se crean las columnas y sus nombres-->
+      <thead>
+        <tr>
+            <th scope="col">N<sup>o</sup> capas Primario</th>
+            <th scope="col">N<sup>o</sup> capas Secundario</th>
+        </tr>
+      </thead>
+          <!--se crean las filas con los datos de la tabla-->
+      <tbody>
+        <tr>
+            <td scope="row" id="cel48">0</td>
+            <td id="cel49">0</td>
+        </tr>
+      </tbody>
+    </table>
+    </fieldset>
+  </section>
+  <section class="seccion_7">
+    <fieldset>
+      <legend> Paso 12: Cálculo del espesor de los aislantes</legend>
+        <p> <label for="espesor_carr"> Espesor del carrete:</label> <input class="entr_text" type="number" id="espe_carr" name="espe_carrete" value="0" step="0.01" min="0" title="Digite el valor del espesor del carrete" >
+          <label for="espe_carr">mm</label> </p>
+        <p> <label for="Ais_pri_sec"> Aislamiento entre el primario y el secundario:</label> <input class="entr_text" type="number" id="ais_pri_sec" name="ais_pri_secundario" value="0" step="0.01" min="0" title="Digite el valor del espesor del aislamiento entre el primario y el secundario">
+          <label for="Ais_pri_sec">mm</label> </p> 
+        <p> <label for="cap_pri"> Espesor de las capas del primario:</label> <input class="entr_text" type="number" id="espe_cap_pri" name="espe_cap_primario" value="0" step="0.01" min="0" title="Digite el valor del espesor de las capas del primario">
+          <label for="cap_pri">mm</label> </p>
+        <p> <label for="cap_sec"> Espesor de las capas del secundario:</label> <input class="entr_text" type="number" id="espe_cap_sec" name="espe_cap_secundario" value="0" step="0.01" min="0" title="Digite el valor del espesor de las capas del secundario">
+          <label for="cap_sec">mm</label> </p>
+        <p> <label for="cap_ext"> Espesor del aislamiento externo:</label> <input class="entr_text" type="number" id="espe_ais_ext" name="espe_ais_externo" value="0" step="0.01" min="0" title="Digite el valor del espesor del aislamiento externo">
+          <label for="cap_ext">mm</label> </p> 
+        <p> <input class="boton" type="button" onclick="aislamiento();" id="aislamiento" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Espesor total del aislamiento</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">Espesor de los aislantes (mm)</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel50">0</td>
+              
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </section>
+  <section class="seccion_8">
+    <fieldset>
+      <legend> Paso 13, 14 y 15: Espesor total del cobre, los bobinados y verificación de espacio de la ventana</legend>
+        
+        <p> <input class="boton" type="button" onclick="paso_131415();" id="paso_131415" value="Calcular"> </p>
+      <table>
+          <!--creamos el encabezado de la tabla-->
+        <caption class="cambia_texto">Datos finales</caption>
+        <!--se crean las columnas y sus nombres-->
+        <thead>
+          <tr>
+              <th scope="col">Espesor total del cobre (mm)</th>
+              <th scope="col">Espesor total de los bobinados (mm)</th>
+              <th scope="col">Verificación de espacio de ventana (%)</th>
+          </tr>
+        </thead>
+            <!--se crean las filas con los datos de la tabla-->
+        <tbody>
+          <tr>
+              <td scope="row" id="cel51">0</td>
+              <td id="cel52">0</td>
+              <td id="cel53">0</td>
+              
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </section>
+</div>
+  
+     <script src="funciones.js"></script>
+
+  </body>
+</html>

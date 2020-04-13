@@ -1,0 +1,221 @@
+/* estilo para los título de la página */
+h1 {
+    /* color del estilo */
+    color: rgb(172, 5, 5);
+    /* estilo de borde inferior de los elementos*/
+    border-bottom: thick double #32a1ce;
+    /*negrita en la letra*/
+    font-weight: bold;
+    /* tamaño de la letra*/
+    font-size: 60px;
+    /* tipo de letra*/
+    font-family: Arial, Helvetica, sans-serif;
+    /* lineas decorativas en el texto*/
+    text-decoration: underline overline;
+}
+h2,li {
+    /* borde del elemento*/
+    border: groove;
+    color: burlywood;
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/* se crea una clase para aplicar estilo especial en cualquier parte del html*/
+.cambia_texto:hover {
+    color: lightsalmon;
+}
+/* cuerpo principal de la pagina*/
+.caja_principal {
+    width: 650px;
+    position: relative;
+    margin: 15px auto;
+    text-align: left;
+}
+/* estilo de la cabecera de la pagina*/
+.cabecera {
+    text-align: center;
+    border: 5px solid yellow;
+    padding: 10px;
+    /* background-image: radial-gradient(circle,rgba(50,120,130,100) 40%, rgba(10,50,45,420)60%); */
+    background-image: radial-gradient(#090, #fff, #2a4f32); 
+    border-radius: 30px;
+
+}
+/* estilo para los botones. */
+.boton {
+    width: auto;
+    border-radius: 16px;
+    background-color: gr;
+    position: relative;
+    left: 42%;
+}
+/* estilo para las entradas de texto. */
+.entr_text {
+    width: 55px ;
+    border-radius: 3px;
+}
+/* estilo para los fieldset */
+.fieldset_1{
+    padding: 12px;
+    border-radius: 6px;
+    border: gray 2px ridge;
+    text-align: justify;
+    position: relative;
+    left: 2%;
+}
+.fieldset_2{
+    padding: 12px;
+    border-radius: 6px;
+    border: gray 2px ridge;
+    text-align: justify;
+    position: relative;
+    left: 0%;
+}
+
+fieldset {
+    padding: 12px;
+    border-radius: 6px;
+    border: gray 2px ridge;
+    text-align: justify;
+    position: relative;
+    
+}
+/* estilo para las leyendas de los fieldset */
+legend {
+    width: auto;
+    border: gray 2px ridge;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+}
+select {
+    border-radius: 3px;
+    width: auto;
+}
+.seccion_1{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border:2px solid rgb(0, 255, 42);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    top: 390px;
+}
+.seccion_2{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border: 2px solid rgb(115, 255, 0);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top:410px;
+    
+}
+.seccion_3{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border:2px solid rgb(0, 255, 42);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    top: 620px;
+}
+.seccion_4{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border: 2px solid rgb(115, 255, 0);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 620px; 
+}
+.seccion_5{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border:2px solid rgb(0, 255, 42);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    top: 950px;
+}
+.seccion_6{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border: 2px solid rgb(115, 255, 0);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 1030px; 
+}
+.seccion_7{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border:2px solid rgb(0, 255, 42);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    top: 1575px;
+}
+.seccion_8{
+    float: left;
+    display: flex;
+    width: 47%;
+    margin: 1px;
+    border: 2px solid rgb(115, 255, 0);
+    border-radius: 10px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 1650px;
+}
+
+table {
+    /* permite que la tabla se pueda configurar según sus encabezados*/ 
+    table-layout: fixed;
+    /* abarca el 100% del contenedor*/
+    width: 100%;
+    /* se establecen los bordes para que queden juntos sin espacios*/
+    border-collapse: collapse;
+    /* se establece el borde de la tabla*/
+    border: 2px solid purple;
+    /* se establece el porcentaje de cada columna*/
+    text-align: center;
+}
+thead th:nth-child(1) {
+    width: 30%;
+}
+thead th:nth-child(2) {
+    width: 30%;
+}
+thead th:nth-child(3) {
+    width: 30%;
+}
+thead th:nth-child(4){
+    width: 30%;
+}
+thead th:nth-child(5) {
+    width: 30%;
+}
+thead th:nth-child(6){
+    width: 30%;
+}
+th, td {
+    padding: 5px;
+  }
